@@ -22,7 +22,7 @@ public class Player implements Observer {
     @Override
     public void update(Observable arg0, Boolean arg1) {
         
-        if(arg0 instanceof Dataset && arg1)
+        if((arg0 instanceof Video || arg0 instanceof Audio) && arg1)
         {
             //System.out.println(((Dataset) arg0).getValue());
             objects.add(((Dataset) arg0).getValue());

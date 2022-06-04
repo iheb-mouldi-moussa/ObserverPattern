@@ -160,18 +160,19 @@ public class Dataset implements Observable {
         ds.add(new Image("imagename4", "dimension info4", "other info4"));
         ds.add(new Image("imagename5", "dimension info5", "other info5"));
 
+        p1.show_list();
+        v1.show_list();
+
         Playable po = p1.currently_playing();
         po.infoPlayable();
-        p1.next(Audio.class);
+        ds.remove(po);
         Playable poo = p1.currently_playing();
         poo.infoPlayable();
+        p1.next(Audio.class);
         p1.previous(Video.class);
-        ds.remove(po);
 
         Non_playable np = v1.currently_viewing();
-        np.infoNonPlayable();
-
-
+        v1.next(Image.class);
     }
 
 }
