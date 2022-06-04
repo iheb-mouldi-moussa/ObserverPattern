@@ -31,7 +31,7 @@ public class Dataset implements Observable {
     public void add(BaseClass baseClass) {
         this.objects.add(baseClass);
         System.out.println("New Objects has been added to the Dataset collection");
-        //setChanged();
+        // setChanged();
         if (baseClass instanceof Video || baseClass instanceof Audio)
             notifyObservers(true, true);
         else
@@ -41,7 +41,7 @@ public class Dataset implements Observable {
     public void remove(BaseClass baseClass) {
         this.objects.remove(baseClass);
         System.out.println("New Objects has been deleted from the Dataset collection");
-        //setChanged();
+        // setChanged();
         if (baseClass instanceof Video || baseClass instanceof Audio)
             notifyObservers(true, false);
         else
@@ -49,68 +49,51 @@ public class Dataset implements Observable {
 
     }
 
-    public void remove(Non_playable non_playable)
-    {
-        if(non_playable instanceof Image)
-        {
+    public void remove(Non_playable non_playable) {
+        if (non_playable instanceof Image) {
             BaseClass baseClass = (Image) non_playable;
             remove(baseClass);
-        }
-        else
-        {
+        } else {
             BaseClass baseClass = (Text) non_playable;
             remove(baseClass);
 
         }
     }
 
-    public void remove(Non_visual non_visual)
-    {
-        if(non_visual instanceof Text)
-        {
+    public void remove(Non_visual non_visual) {
+        if (non_visual instanceof Text) {
             BaseClass baseClass = (Text) non_visual;
             remove(baseClass);
-        }
-        else
-        {
+        } else {
             BaseClass baseClass = (Audio) non_visual;
             remove(baseClass);
         }
     }
 
-    public void remove(Playable Playable)
-    {
-        if(Playable instanceof Text)
-        {
+    public void remove(Playable Playable) {
+        if (Playable instanceof Text) {
             BaseClass baseClass = (Text) Playable;
             remove(baseClass);
-        }
-        else
-        {
+        } else {
             BaseClass baseClass = (Audio) Playable;
             remove(baseClass);
         }
     }
 
-    public void remove(Visual Visual)
-    {
-        if(Visual instanceof Text)
-        {
+    public void remove(Visual Visual) {
+        if (Visual instanceof Text) {
             BaseClass baseClass = (Text) Visual;
             remove(baseClass);
-        }
-        else
-        {
+        } else {
             BaseClass baseClass = (Audio) Visual;
             remove(baseClass);
         }
     }
 
-
     @Override
     public void register(Observer observer) {
         if (observer == null)
-               throw new NullPointerException("can't add null observer");
+            throw new NullPointerException("can't add null observer");
         if (observer instanceof Player)
             playerObservers.add(observer);
         else
@@ -134,9 +117,7 @@ public class Dataset implements Observable {
                 Observer o = it.next();
                 o.update(this, isAdding);
             }
-        }
-        else
-        {
+        } else {
             for (Iterator<Observer> it = viewerObservers.iterator(); it.hasNext();) {
                 Observer o = it.next();
                 o.update(this, isAdding);
@@ -151,22 +132,45 @@ public class Dataset implements Observable {
     }
 
     public static void main(String[] args) throws ExceptionListEmpty {
-        Dataset dataset = new Dataset();
-        Player player = new Player();
-        Viewer viewer = new Viewer();
-        dataset.register(player);
-        dataset.register(viewer);
-        dataset.add(new Image("test1", "test2", "test3"));
-        dataset.add(new Text("text1", "text2"));
-        dataset.add(new Image("2", "2", "2"));
-        viewer.show_list();
-        viewer.next(Image.class);
-        viewer.next(Text.class);
-        viewer.previous(Text.class);
-        viewer.previous(Image.class);
-        Non_playable non_playable = viewer.currently_viewing();
-        non_playable.infoNonPlayable();
-        dataset.remove(non_playable);
+        Dataset ds = new Dataset();
+        Player p1 = new Player();
+        Player p2 = new Player();
+        Viewer v1 = new Viewer();
+        Viewer v2 = new Viewer();
+        ds.register(p1);
+        ds.register(p2);
+        ds.register(v1);
+        ds.register(v2);
+
+        ds.add(new Audio("audioname1", "duration1", "other info1"));
+        ds.add(new Audio("audioname2", "duration2", "other info2"));
+        ds.add(new Audio("audioname3", "duration3", "other info3"));
+
+        ds.add(new Video("videoname1", "duration1", "other info1"));
+        ds.add(new Video("videoname2", "duration2", "other info2"));
+        ds.add(new Video("videoname3", "duration3", "other info3"));
+
+        ds.add(new Text("textname1", "other info1"));
+        ds.add(new Text("textname2", "other info2"));
+        ds.add(new Text("textname3", "other info3"));
+
+        ds.add(new Image("imagename1", "dimension info1", "other info1"));
+        ds.add(new Image("imagename2", "dimension info2", "other info2"));
+        ds.add(new Image("imagename3", "dimension info3", "other info3"));
+        ds.add(new Image("imagename4", "dimension info4", "other info4"));
+        ds.add(new Image("imagename5", "dimension info5", "other info5"));
+
+        Playable po = p1.currently_playing();
+        po.infoPlayable();
+        p1.next(Audio.class);
+        Playable poo = p1.currently_playing();
+        poo.infoPlayable();
+        p1.previous(Video.class);
+        ds.remove(po);
+
+        Non_playable np = v1.currently_viewing();
+        np.infoNonPlayable();
+
 
     }
 

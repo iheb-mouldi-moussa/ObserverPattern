@@ -38,7 +38,7 @@ public class Player implements Observer {
         
     }
 
-    public Playable currently_viewing() throws ExceptionListEmpty
+    public Playable currently_playing() throws ExceptionListEmpty
     {
         if(objects.isEmpty() || playable == null)
         {

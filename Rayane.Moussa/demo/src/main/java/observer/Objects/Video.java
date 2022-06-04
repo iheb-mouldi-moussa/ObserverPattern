@@ -15,7 +15,7 @@ public class Video extends BaseClass implements Visual, Playable{
         this.str1 = str1;
         this.str2 = str2;
         this.str3 = str3;
-        System.out.println("New Image object created with this parameters : " 
+        System.out.println("New Video object created with this parameters : " 
         + str1 + " " + str2 + " "+ str3);
     }
 
