@@ -18,34 +18,24 @@ public class Audio extends BaseClass implements Playable, Non_visual {
         System.out.println("New Audio object created with this parameters : " 
         + str1 + " " + str2 + " "+ str3);
     }
+    @Override
+    public void infoNonVisual()
+    {
 
-    public String getStr1() {
-        return this.str1;
-    }
-
-    public void setStr1(String str1) {
-        this.str1 = str1;
-    }
-
-    public String getStr2() {
-        return this.str2;
-    }
-
-    public void setStr2(String str2) {
-        this.str2 = str2;
-    }
-
-    public String getStr3() {
-        return this.str3;
-    }
-
-    public void setStr3(String str3) {
-        this.str3 = str3;
+        System.out.println("The non-visual object is an audio with these parameters : " + str1 + " " + str2 + " "+ str3);
     }
 
     @Override
-    public void info()
+    public void infoPlayable()
     {
 
+        System.out.println("The playable object is an audio with these parameters : " + str1 + " " + str2 + " "+ str3);
+    }
+
+
+    @Override
+    public String toString()
+    {
+        return String.format("[ The Audio is %s %s %s ]", str1, str2, str3);
     }
 }

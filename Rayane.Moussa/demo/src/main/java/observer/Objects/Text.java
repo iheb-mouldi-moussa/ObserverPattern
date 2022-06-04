@@ -2,8 +2,9 @@ package observer.Objects;
 
 import observer.BaseClass.BaseClass;
 import observer.Interfaces.Non_playable;
+import observer.Interfaces.Non_visual;
 
-public class Text extends BaseClass implements Non_playable {
+public class Text extends BaseClass implements Non_playable, Non_visual{
     
     private String str1, str2;
 
@@ -16,14 +17,24 @@ public class Text extends BaseClass implements Non_playable {
     }
 
     @Override
-    public void info()
+    public void infoNonPlayable()
     {
         System.out.println("The non-playable object is a text with these parameters : " + str1 + " " + str2);
     }
 
     @Override
+    public void infoNonVisual() {
+
+        System.out.println("The non-visual object is a text with these parameters : " + str1 + " " + str2);
+        
+    }
+    
+    @Override
     public String toString()
     {
-        return String.format("The text is %s %s", str1, str2);
+        return String.format("[ The Text is %s %s ]", str1, str2);
     }
+
+    
+
 }

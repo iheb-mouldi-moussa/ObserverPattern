@@ -2,5 +2,5 @@ package observer.Interfaces;
 
 public interface Playable {
     
-    public void info();
+    public void infoPlayable();
 }

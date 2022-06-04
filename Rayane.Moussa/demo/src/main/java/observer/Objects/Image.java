@@ -1,6 +1,6 @@
 package observer.Objects;
 
-import java.util.Observer;
+//import java.util.Observer;
 
 import observer.BaseClass.BaseClass;
 import observer.Interfaces.Non_playable;
@@ -20,15 +20,23 @@ public class Image extends BaseClass implements Visual, Non_playable{
     }
 
     @Override
-    public void info()
+    public void infoNonPlayable()
     {
         System.out.println("The non-playable object is an image with these parameters : " + str1 + " " + str2 + " "+ str3);
     }
 
     @Override
+    public void infoVisual()
+    {
+        System.out.println("The visual object is an image with these parameters : " + str1 + " " + str2 + " "+ str3);
+        
+    }
+
+    @Override
     public String toString()
     {
-        return String.format("Image is %s %s %s", str1, str2, str3);
+        return String.format("[ The Image is %s %s %s ]", str1, str2, str3);
     }
+
     
 }

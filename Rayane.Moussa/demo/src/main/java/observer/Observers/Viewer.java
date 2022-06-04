@@ -1,30 +1,29 @@
 package observer.Observers;
 
-import java.lang.ProcessBuilder.Redirect.Type;
+//import java.lang.ProcessBuilder.Redirect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
-import javax.lang.model.util.ElementScanner6;
+//import javax.lang.model.util.ElementScanner6;
 
 import observer.BaseClass.BaseClass;
 import observer.Exceptions.ExceptionListEmpty;
 import observer.Interfaces.Non_playable;
-import observer.Interfaces.Playable;
+//import observer.Interfaces.Playable;
 import observer.Objects.Image;
 import observer.Objects.Text;
 import observer.Observable.Dataset;
-
+import observer.Observable.Observable;
+//import observer.Observers.Observer;
 public class Viewer implements Observer {
 
     private List<BaseClass> objects = new ArrayList<>();
     private static int currImageIndex, currTextIndex = 0;
     private static Non_playable non_playable;
     @Override
-    public void update(Observable arg0, Object arg1) {
+    public void update(Observable arg0, Boolean arg1) {
         
-        if(arg0 instanceof Dataset && "add-non-playable".equals(arg1))
+        if(arg0 instanceof Dataset && arg1)
         {
             //System.out.println(((Dataset) arg0).getValue());
             objects.add(((Dataset) arg0).getValue());
