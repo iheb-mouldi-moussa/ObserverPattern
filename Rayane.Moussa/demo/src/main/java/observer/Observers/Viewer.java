@@ -44,7 +44,7 @@ public class Viewer implements Observer {
     {
         if(objects.isEmpty() || non_playable == null)
         {
-            throw new ExceptionListEmpty("List Is Empty");
+            throw new ExceptionListEmpty("NonPlayable List Is Empty");
         }
         return non_playable;
     }
@@ -57,9 +57,11 @@ public class Viewer implements Observer {
 
     public void next(Class<?> baseClass) throws ExceptionListEmpty
     {
+        int saveIndex = currTextIndex;
+        int saveIndex2 = currImageIndex;
         if(objects.isEmpty())
         {
-            throw new ExceptionListEmpty("List Is Empty");
+            throw new ExceptionListEmpty("NonPlayable List Is Empty");
         }
         else if (baseClass == Text.class)
         {
@@ -73,6 +75,7 @@ public class Viewer implements Observer {
             }
             
             System.out.println("NO MORE TEXT !!!!!!!!!!!!!!");
+            currTextIndex = saveIndex;
         }
         else
         {
@@ -86,6 +89,45 @@ public class Viewer implements Observer {
             }
             
             System.out.println("NO MORE IMAGE !!!!!!!!!!!!!!");
+            currImageIndex = saveIndex2;
+        }
+    }
+
+    public void previous(Class<?> baseClass) throws ExceptionListEmpty
+    {
+        int saveIndex = currTextIndex;
+        int saveIndex2 = currImageIndex;
+        if(objects.isEmpty())
+        {
+            throw new ExceptionListEmpty("List Is Empty");
+        }
+        else if (baseClass == Text.class)
+        {
+            while(--currTextIndex >= 0)
+            {
+                if(objects.get(currTextIndex) instanceof Text)
+                {
+                    non_playable = (Non_playable) (objects.get(currTextIndex));
+                    return;
+                }
+            }
+            
+            System.out.println("NO PREVIOUS TEXT !!!!!!!!!!!!!!");
+            currTextIndex = saveIndex;
+        }
+        else
+        {
+            while(--currImageIndex >= 0)
+            {
+                if(objects.get(currImageIndex) instanceof Image)
+                {
+                    non_playable = (Non_playable) (objects.get(currImageIndex));
+                    return;
+                }
+            }
+            
+            System.out.println("NO PREVIOUS IMAGE !!!!!!!!!!!!!!");
+            currImageIndex = saveIndex2;
         }
     }
 

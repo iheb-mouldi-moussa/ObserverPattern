@@ -71,12 +71,14 @@ public class Dataset extends Observable {
         Viewer viewer = new Viewer();
         dataset.register(player);
         dataset.register(viewer);
-        dataset.add(new Image("test1", "test2", "test3"));
-        dataset.add(new Text("text1", "text2"));
-        dataset.add(new Image("2", "2", "2"));
+        //dataset.add(new Image("test1", "test2", "test3"));
+        //dataset.add(new Text("text1", "text2"));
+        //dataset.add(new Image("2", "2", "2"));
         viewer.show_list();
         viewer.next(Image.class);
         viewer.next(Text.class);
+        viewer.previous(Text.class);
+        viewer.previous(Image.class);
 
         Non_playable non_playable = viewer.currently_viewing();
         non_playable.info();
