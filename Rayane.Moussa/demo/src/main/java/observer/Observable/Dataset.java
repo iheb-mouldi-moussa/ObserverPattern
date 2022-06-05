@@ -33,9 +33,9 @@ public class Dataset implements Observable {
         System.out.println("New Objects has been added to the Dataset collection");
         // setChanged();
         if (baseClass instanceof Video || baseClass instanceof Audio)
-            notifyObservers(true, true);
+            notifyObservers(true, true, baseClass);
         else
-            notifyObservers(false, true);
+            notifyObservers(false, true, baseClass);
     }
 
     public void remove(BaseClass baseClass) {
@@ -43,9 +43,9 @@ public class Dataset implements Observable {
         System.out.println("New Objects has been deleted from the Dataset collection");
         // setChanged();
         if (baseClass instanceof Video || baseClass instanceof Audio)
-            notifyObservers(true, false);
+            notifyObservers(true, false, baseClass);
         else
-            notifyObservers(false, false);
+            notifyObservers(false, false, baseClass);
 
     }
 
@@ -110,17 +110,17 @@ public class Dataset implements Observable {
     }
 
     @Override
-    public void notifyObservers(Boolean isPlayer, Boolean isAdding) {
+    public void notifyObservers(Boolean isPlayer, Boolean isAdding, BaseClass baseClass) {
 
         if (isPlayer) {
             for (Iterator<Observer> it = playerObservers.iterator(); it.hasNext();) {
                 Observer o = it.next();
-                o.update(this, isAdding);
+                o.update(baseClass, isAdding);
             }
         } else {
             for (Iterator<Observer> it = viewerObservers.iterator(); it.hasNext();) {
                 Observer o = it.next();
-                o.update(this, isAdding);
+                o.update(baseClass, isAdding);
             }
 
         }
@@ -128,7 +128,7 @@ public class Dataset implements Observable {
     }
 
     public BaseClass getValue() {
-        return objects.get(objects.size() - 1);
+        return objects.get(0);
     }
 
     public static void main(String[] args) throws ExceptionListEmpty {
@@ -149,7 +149,8 @@ public class Dataset implements Observable {
         ds.add(new Video("videoname1", "duration1", "other info1"));
         ds.add(new Video("videoname2", "duration2", "other info2"));
         ds.add(new Video("videoname3", "duration3", "other info3"));
-
+      
+/*     
         ds.add(new Text("textname1", "other info1"));
         ds.add(new Text("textname2", "other info2"));
         ds.add(new Text("textname3", "other info3"));
@@ -159,20 +160,36 @@ public class Dataset implements Observable {
         ds.add(new Image("imagename3", "dimension info3", "other info3"));
         ds.add(new Image("imagename4", "dimension info4", "other info4"));
         ds.add(new Image("imagename5", "dimension info5", "other info5"));
-
+*/
         p1.show_list();
-        v1.show_list();
+//        v1.show_list();
 
         Playable po = p1.currently_playing();
         po.infoPlayable();
         ds.remove(po);
+        p1.show_list();
         Playable poo = p1.currently_playing();
         poo.infoPlayable();
         p1.next(Audio.class);
+        poo = p1.currently_playing();
+        poo.infoPlayable();
         p1.previous(Video.class);
+        poo = p1.currently_playing();
+        poo.infoPlayable();
 
-        Non_playable np = v1.currently_viewing();
+       /* Non_playable np = v1.currently_viewing();
+        np.infoNonPlayable();
         v1.next(Image.class);
+        np = v1.currently_viewing();
+        np.infoNonPlayable();
+        v1.previous(Image.class);
+        np = v1.currently_viewing();
+        np.infoNonPlayable();
+        ds.remove(np);
+        v1.show_list();
+        Non_playable npp = v1.currently_viewing();
+        npp.infoNonPlayable();
+*/
     }
 
 }

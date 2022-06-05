@@ -17,34 +17,71 @@ public class Player implements Observer {
 
 
     private List<BaseClass> objects = new ArrayList<>();
-    private static int currImageIndex, currTextIndex = 0;
-    private static Playable playable;
+    private static int currAudioIndex, currVideoIndex = 0;
+    private static Playable currently_playing;
     @Override
-    public void update(Observable arg0, Boolean arg1) {
+    public void update(BaseClass arg0, Boolean arg1) {
         
-        if((arg0 instanceof Video || arg0 instanceof Audio) && arg1)
+        if(arg1)
         {
             //System.out.println(((Dataset) arg0).getValue());
-            objects.add(((Dataset) arg0).getValue());
-            playable = (Playable) objects.get(0);
-            System.out.println("Player observers have been notified and new playable object added");
+            objects.add(arg0);
+            if(currently_playing == null)
+                currently_playing = (Playable) objects.get(0);
+            System.out.println("Player observers have been notified and new playable object "  + arg0.toString() + " added");
         }
         else
         {
-            objects.remove(((Dataset) arg0).getValue());
-            playable =  objects.isEmpty() ? null  : (Playable) objects.get(0);
-            System.out.println("Player observers have been notified and new playable object deleted");
+            if(currently_playing == arg0)
+            {
+                try {
+                    next(arg0.getClass());
+                    objects.remove(arg0);
+                    return;
+                } catch (Exception e) {
+                    //TODO: handle exception
+                }
+            }
+            objects.remove(arg0);
+            if(arg0 instanceof Video)
+            {
+                
+                currVideoIndex = (currVideoIndex == 0) ? 0 : currVideoIndex--;
+                currently_playing = (Playable) objects.get(currVideoIndex);
+            } else {
+                currAudioIndex = (currAudioIndex == 0) ? 0 : currAudioIndex--;
+                currently_playing = (Playable) objects.get(currAudioIndex);
+            }
+            
+            System.out.println("Player observers have been notified and the playable object " + arg0.toString() +" deleted");
         }
         
     }
 
+    public void setCurrIndex() {
+        int temp1 = currVideoIndex;
+        int temp2 = currAudioIndex;
+        while (temp1 < objects.size()) {
+            if (objects.get(temp1) instanceof Video)
+                break;
+            temp1++;
+        }
+        while (temp2 < objects.size()) {
+            if (objects.get(temp2) instanceof Audio)
+                break;
+            temp2++;
+        }
+        currAudioIndex = temp2;
+        currVideoIndex = temp1;
+
+    }
     public Playable currently_playing() throws ExceptionListEmpty
     {
-        if(objects.isEmpty() || playable == null)
+        if(objects.isEmpty() || currently_playing == null)
         {
             throw new ExceptionListEmpty("Playable List Is Empty");
         }
-        return playable;
+        return currently_playing;
     }
 
     public void show_list()
@@ -55,77 +92,77 @@ public class Player implements Observer {
 
     public void next(Class<?> baseClass) throws ExceptionListEmpty
     {
-        int saveIndex = currTextIndex;
-        int saveIndex2 = currImageIndex;
+        int saveIndex = currVideoIndex;
+        int saveIndex2 = currAudioIndex;
         if(objects.isEmpty())
         {
-            throw new ExceptionListEmpty("NonPlayable List Is Empty");
+            throw new ExceptionListEmpty("Playable List Is Empty");
         }
         else if (baseClass == Video.class)
         {
-            while(++currTextIndex < objects.size())
+            while(++currVideoIndex < objects.size())
             {
-                if(objects.get(currTextIndex) instanceof Video)
+                if(objects.get(currVideoIndex) instanceof Video)
                 {
-                    playable = (Playable) (objects.get(currTextIndex));
+                    currently_playing = (Playable) (objects.get(currVideoIndex));
                     return;
                 }
             }
             
             System.out.println("NO MORE VIDEO !!!!!!!!!!!!!!");
-            currTextIndex = saveIndex;
+            currVideoIndex = saveIndex;
         }
         else
         {
-            while(++currImageIndex < objects.size())
+            while(++currAudioIndex < objects.size())
             {
-                if(objects.get(currImageIndex) instanceof Audio)
+                if(objects.get(currAudioIndex) instanceof Audio)
                 {
-                    playable = (Playable) (objects.get(currImageIndex));
+                    currently_playing = (Playable) (objects.get(currAudioIndex));
                     return;
                 }
             }
             
             System.out.println("NO MORE AUDIO !!!!!!!!!!!!!!");
-            currImageIndex = saveIndex2;
+            currAudioIndex = saveIndex2;
         }
     }
 
     public void previous(Class<?> baseClass) throws ExceptionListEmpty
     {
-        int saveIndex = currTextIndex;
-        int saveIndex2 = currImageIndex;
+        int saveIndex = currVideoIndex;
+        int saveIndex2 = currAudioIndex;
         if(objects.isEmpty())
         {
             throw new ExceptionListEmpty("List Is Empty");
         }
         else if (baseClass == Video.class)
         {
-            while(--currTextIndex >= 0)
+            while(--currVideoIndex >= 0)
             {
-                if(objects.get(currTextIndex) instanceof Video)
+                if(objects.get(currVideoIndex) instanceof Video)
                 {
-                    playable = (Playable) (objects.get(currTextIndex));
+                    currently_playing = (Playable) (objects.get(currVideoIndex));
                     return;
                 }
             }
             
             System.out.println("THIS WAS THE LAST PREVIOUS VIDEO !!!!!!!!!!!!!!");
-            currTextIndex = saveIndex;
+            currVideoIndex = saveIndex;
         }
         else
         {
-            while(--currImageIndex >= 0)
+            while(--currAudioIndex >= 0)
             {
-                if(objects.get(currImageIndex) instanceof Audio)
+                if(objects.get(currAudioIndex) instanceof Audio)
                 {
-                    playable = (Playable) (objects.get(currImageIndex));
+                    currently_playing = (Playable) (objects.get(currAudioIndex));
                     return;
                 }
             }
             
             System.out.println("NO PREVIOUS AUDIO !!!!!!!!!!!!!!");
-            currImageIndex = saveIndex2;
+            currAudioIndex = saveIndex2;
         }
     }
 
