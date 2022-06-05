@@ -13,19 +13,19 @@ public class Text extends BaseClass implements Non_playable, Non_visual{
         this.str1 = str1;
         this.str2 = str2;
         System.out.println("New Text object created with this parameters : " 
-        + str1 + " " + str2);
+        + str1 + " " + str2+ "\n");
     }
 
     @Override
     public void infoNonPlayable()
     {
-        System.out.println("The non-playable object is a text with these parameters : " + str1 + " " + str2);
+        System.out.println("The non-playable object is a text with these parameters : " + str1 + " " + str2+ "\n");
     }
 
     @Override
     public void infoNonVisual() {
 
-        System.out.println("The non-visual object is a text with these parameters : " + str1 + " " + str2);
+        System.out.println("The non-visual object is a text with these parameters : " + str1 + " " + str2+ "\n");
         
     }
     

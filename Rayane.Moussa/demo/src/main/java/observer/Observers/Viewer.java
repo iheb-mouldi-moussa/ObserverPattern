@@ -41,13 +41,13 @@ public class Viewer implements Observer {
             if (currently_viewing == null)
                 currently_viewing = (Non_playable) objects.get(0);
             System.out.println(
-                    "Viewer observer has been notified and new non-playabled object " + arg0.toString() + " added");
+                    "Viewer observer has been notified and new non-playabled object " + arg0.toString() + " added\n");
         } else {
             if (currently_viewing == arg0) {
                 try {
                     next(arg0.getClass());
                     objects.remove(arg0);
-                    System.out.println("Viewer observer has been notified and the non-playable object " + arg0.toString() + " deleted");
+                    System.out.println("Viewer observer has been notified and the non-playable object " + arg0.toString() + " deleted\n");
                     return;
                 } catch (ExceptionListEmpty e) {
                     // TODO Auto-generated catch block
@@ -66,7 +66,7 @@ public class Viewer implements Observer {
             // currently_viewing = objects.isEmpty() ? null : (Non_playable) objects.get(0);
             // System.out.println("Current viewing is " + currently_viewing);
             System.out.println(
-                    "Viewer observer has been notified and the non-playable object " + arg0.toString() + " deleted");
+                    "Viewer observer has been notified and the non-playable object " + arg0.toString() + " deleted\n");
         }
 
     }
@@ -97,7 +97,7 @@ public class Viewer implements Observer {
     }
 
     public void show_list() {
-        System.out.println(objects);
+        System.out.println(objects + "\n");
     }
 
     public void next(Class<?> baseClass) throws ExceptionListEmpty {

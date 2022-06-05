@@ -30,7 +30,7 @@ public class Dataset implements Observable {
 
     public void add(BaseClass baseClass) {
         this.objects.add(baseClass);
-        System.out.println("New Objects has been added to the Dataset collection");
+        System.out.println("New Objects has been added to the Dataset collection\n");
         // setChanged();
         if (baseClass instanceof Video || baseClass instanceof Audio)
             notifyObservers(true, true, baseClass);
@@ -40,7 +40,7 @@ public class Dataset implements Observable {
 
     public void remove(BaseClass baseClass) {
         this.objects.remove(baseClass);
-        System.out.println("New Objects has been deleted from the Dataset collection");
+        System.out.println("New Objects has been deleted from the Dataset collection\n");
         // setChanged();
         if (baseClass instanceof Video || baseClass instanceof Audio)
             notifyObservers(true, false, baseClass);

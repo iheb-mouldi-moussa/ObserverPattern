@@ -36,7 +36,7 @@ public class Player implements Observer {
             objects.add(arg0);
             if(currently_playing == null)
                 currently_playing = (Playable) objects.get(0);
-            System.out.println("Player observers have been notified and new playable object "  + arg0.toString() + " added");
+            System.out.println("Player observers have been notified and new playable object "  + arg0.toString() + " added\n");
         }
         else
         {
@@ -45,7 +45,7 @@ public class Player implements Observer {
                 try {
                     next(arg0.getClass());
                     objects.remove(arg0);
-                    System.out.println("Player observers have been notified and the playable object " + arg0.toString() +" deleted");
+                    System.out.println("Player observers have been notified and the playable object " + arg0.toString() +" deleted\n");
                     return;
                 } catch (Exception e) {
                     //TODO: handle exception
@@ -61,7 +61,7 @@ public class Player implements Observer {
                 currently_playing = (Playable) objects.get(currAudioIndex);
             }
             
-            System.out.println("Player observers have been notified and the playable object " + arg0.toString() +" deleted");
+            System.out.println("Player observers have been notified and the playable object " + arg0.toString() +" deleted\n");
         }
         
     }
@@ -94,7 +94,7 @@ public class Player implements Observer {
 
     public void show_list()
     {
-        System.out.println(objects);
+        System.out.println(objects + "\n");
     }
 
 
@@ -174,9 +174,5 @@ public class Player implements Observer {
             System.out.println("NO PREVIOUS AUDIO !!!!!!!!!!!!!!");
             currAudioIndex = saveIndex2;
         }
-    }
-
-
-   
-    
+    }       
 }

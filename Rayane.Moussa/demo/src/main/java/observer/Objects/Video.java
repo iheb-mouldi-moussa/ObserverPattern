@@ -16,19 +16,19 @@ public class Video extends BaseClass implements Visual, Playable{
         this.str2 = str2;
         this.str3 = str3;
         System.out.println("New Video object created with this parameters : " 
-        + str1 + " " + str2 + " "+ str3);
+        + str1 + " " + str2 + " "+ str3+ "\n");
     }
 
     @Override
     public void infoPlayable() {
        
-        System.out.println("The playable object is a video with these parameters : " + str1 + " " + str2 + " "+ str3);
+        System.out.println("The playable object is a video with these parameters : " + str1 + " " + str2 + " "+ str3+ "\n");
     }
 
     @Override
     public void infoVisual() {
         
-        System.out.println("The visual object is a video with these parameters : " + str1 + " " + str2 + " "+ str3);
+        System.out.println("The visual object is a video with these parameters : " + str1 + " " + str2 + " "+ str3+ "\n");
     }
     
     @Override
