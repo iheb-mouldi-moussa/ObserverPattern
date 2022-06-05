@@ -4,6 +4,8 @@ package observer.Observers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.View;
+
 //import javax.lang.model.util.ElementScanner6;
 
 import observer.BaseClass.BaseClass;
@@ -21,6 +23,14 @@ public class Viewer implements Observer {
     private List<BaseClass> objects = new ArrayList<>();
     private static int currImageIndex, currTextIndex = 0;
     private static Non_playable currently_viewing = null;
+
+    public Viewer(Dataset ds)
+    {
+        ds.register(this);
+    }
+
+    public Viewer()
+    {}
 
     @Override
     public void update(BaseClass arg0, Boolean arg1) {

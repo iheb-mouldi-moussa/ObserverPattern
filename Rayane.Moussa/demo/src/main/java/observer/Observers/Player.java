@@ -15,10 +15,18 @@ import observer.Observable.Observable;
 public class Player implements Observer {
 
 
-
     private List<BaseClass> objects = new ArrayList<>();
     private static int currAudioIndex, currVideoIndex = 0;
     private static Playable currently_playing;
+
+    public Player(Dataset ds)
+    {
+        ds.register(this);
+    }
+
+    public Player()
+    {}
+
     @Override
     public void update(BaseClass arg0, Boolean arg1) {
         
@@ -108,7 +116,7 @@ public class Player implements Observer {
                     return;
                 }
             }
-            
+
             System.out.println("NO MORE VIDEO !!!!!!!!!!!!!!");
             currVideoIndex = saveIndex;
         }
