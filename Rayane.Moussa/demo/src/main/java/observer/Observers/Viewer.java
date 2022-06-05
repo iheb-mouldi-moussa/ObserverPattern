@@ -47,6 +47,7 @@ public class Viewer implements Observer {
                 try {
                     next(arg0.getClass());
                     objects.remove(arg0);
+                    System.out.println("Viewer observer has been notified and the non-playable object " + arg0.toString() + " deleted");
                     return;
                 } catch (ExceptionListEmpty e) {
                     // TODO Auto-generated catch block

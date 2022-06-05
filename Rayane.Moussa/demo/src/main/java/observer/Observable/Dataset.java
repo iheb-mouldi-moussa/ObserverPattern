@@ -134,13 +134,9 @@ public class Dataset implements Observable {
     public static void main(String[] args) throws ExceptionListEmpty {
         Dataset ds = new Dataset();
         Player p1 = new Player();
-        Player p2 = new Player();
         Viewer v1 = new Viewer();
-        Viewer v2 = new Viewer();
         ds.register(p1);
-        ds.register(p2);
         ds.register(v1);
-        ds.register(v2);
 
         ds.add(new Audio("audioname1", "duration1", "other info1"));
         ds.add(new Audio("audioname2", "duration2", "other info2"));
@@ -150,7 +146,7 @@ public class Dataset implements Observable {
         ds.add(new Video("videoname2", "duration2", "other info2"));
         ds.add(new Video("videoname3", "duration3", "other info3"));
       
-/*     
+    
         ds.add(new Text("textname1", "other info1"));
         ds.add(new Text("textname2", "other info2"));
         ds.add(new Text("textname3", "other info3"));
@@ -160,24 +156,21 @@ public class Dataset implements Observable {
         ds.add(new Image("imagename3", "dimension info3", "other info3"));
         ds.add(new Image("imagename4", "dimension info4", "other info4"));
         ds.add(new Image("imagename5", "dimension info5", "other info5"));
-*/
+
         p1.show_list();
-//        v1.show_list();
+        v1.show_list();
 
         Playable po = p1.currently_playing();
         po.infoPlayable();
-        ds.remove(po);
-        p1.show_list();
-        Playable poo = p1.currently_playing();
-        poo.infoPlayable();
         p1.next(Audio.class);
-        poo = p1.currently_playing();
-        poo.infoPlayable();
-        p1.previous(Video.class);
-        poo = p1.currently_playing();
-        poo.infoPlayable();
+        po = p1.currently_playing();
+        po.infoPlayable();
+        p1.show_list();
+        p1.previous(Audio.class);
+        po = p1.currently_playing();
+        po.infoPlayable();
 
-       /* Non_playable np = v1.currently_viewing();
+       Non_playable np = v1.currently_viewing();
         np.infoNonPlayable();
         v1.next(Image.class);
         np = v1.currently_viewing();
@@ -189,7 +182,7 @@ public class Dataset implements Observable {
         v1.show_list();
         Non_playable npp = v1.currently_viewing();
         npp.infoNonPlayable();
-*/
+
     }
 
 }

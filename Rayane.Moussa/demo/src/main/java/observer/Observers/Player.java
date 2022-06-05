@@ -45,6 +45,7 @@ public class Player implements Observer {
                 try {
                     next(arg0.getClass());
                     objects.remove(arg0);
+                    System.out.println("Player observers have been notified and the playable object " + arg0.toString() +" deleted");
                     return;
                 } catch (Exception e) {
                     //TODO: handle exception
@@ -52,8 +53,7 @@ public class Player implements Observer {
             }
             objects.remove(arg0);
             if(arg0 instanceof Video)
-            {
-                
+            { 
                 currVideoIndex = (currVideoIndex == 0) ? 0 : currVideoIndex--;
                 currently_playing = (Playable) objects.get(currVideoIndex);
             } else {
@@ -100,6 +100,7 @@ public class Player implements Observer {
 
     public void next(Class<?> baseClass) throws ExceptionListEmpty
     {
+        setCurrIndex();
         int saveIndex = currVideoIndex;
         int saveIndex2 = currAudioIndex;
         if(objects.isEmpty())
@@ -138,6 +139,7 @@ public class Player implements Observer {
 
     public void previous(Class<?> baseClass) throws ExceptionListEmpty
     {
+        setCurrIndex();
         int saveIndex = currVideoIndex;
         int saveIndex2 = currAudioIndex;
         if(objects.isEmpty())
